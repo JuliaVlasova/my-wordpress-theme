@@ -11,7 +11,7 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<div class="post-header">
-		<?php jvtravel_post_thumbnail(); ?>
+		<div class="post-header__thumbnail"><?php jvtravel_post_thumbnail(); ?></div>
 		<div class="post-header__overlay"></div>
 
 		<header class="entry-header">
