@@ -1,0 +1,437 @@
+/*
+Theme Name: JVTravel
+Theme URI: http://example.com/jvtravel/
+Author: Your Name
+Author URI: http://example.com/
+Description: Тема для путешествий.
+Version: 1.0
+Requires at least: 5.0
+Tested up to: 6.0
+Requires PHP: 7.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: jvtravel
+Tags: blog, two-columns, custom-background, custom-logo
+*/
+
+
+.site-main .wp-block-image img {
+	object-fit: cover;
+	object-position: 0 -200px;
+}
+
+.site-main .wp-block-image {
+	height: 250px;
+	overflow: hidden;
+	border-radius: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+.post-header {
+	position: relative;
+	padding: 30px;
+	width: 100%;
+	height: 200px;
+	border-radius: 20px;
+	overflow: hidden;
+}
+
+.post-header_main {
+	height: 400px;
+}
+
+.homepage .post-header_main {
+	height: 300px;
+	margin-bottom: 100px;
+}
+
+.main-h2 {
+	margin-top: 0;
+	margin-bottom: 30px;
+}
+
+.post-header .post-thumbnail {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+}
+
+.post-header__overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.7);
+	z-index: 2;
+}
+
+.post-header .entry-header,
+.post-header .entry-content {
+	position: relative;
+	z-index: 3;
+}
+
+.main-h2 {
+	text-align: center;
+	font-size: 42px;
+}
+
+.post-thumbnail_custom {
+	display: block;
+	width: 300px;
+	height: 300px;
+	border-radius: 100%;
+	overflow: hidden;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+.post-thumbnail_custom img {
+	transition: all .4s ease-in-out;
+}
+
+.post-thumbnail_custom:hover img {
+	transform: scale(1.5);
+}
+
+.post-thumbnail_main {
+	width: 100%;
+	height: 400px;
+	overflow: hidden;
+	position: relative;
+	border-radius: 20px;
+}
+
+.post-thumbnail_main img {
+	width: 100%;
+	height: auto;
+}
+
+/* Tabs */
+.tabs-container {
+	margin: 2rem 0;
+}
+
+.tabs-nav {
+	display: flex;
+	gap: 10px;
+	border-bottom: 1px solid #ddd;
+	flex-wrap: wrap;
+}
+
+.tab-button {
+	background: #f0f0f0;
+	border: 1px solid #ccc;
+	padding: 10px 15px;
+	cursor: pointer;
+	border-radius: 4px 4px 0 0;
+}
+
+.tab-button:hover {
+	background: #e0e0e0;
+}
+
+.tab-button.active {
+	background: #007cba;
+	color: white;
+}
+
+.tab-pane {
+	display: none;
+	padding: 20px;
+	border: 1px solid #ddd;
+	border-top: none;
+	border-radius: 0 0 4px 4px;
+}
+
+.tab-pane.active {
+	display: block;
+}
+
+.post-preview {
+	margin-bottom: 1rem;
+}
+
+.post-preview img {
+	width: 300px;
+	height: auto;
+	display: block;
+}
+
+.posts-list__image-wrapper {
+	display: block;
+	width: 300px;
+	height: 300px;
+	border-radius: 100%;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+	overflow: hidden;
+}
+
+.post-preview {
+	flex: none;
+	max-width: 300px;
+}
+
+.posts-list {
+	display: flex;
+	gap: 20px;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.posts-list__text-block {
+	padding: 20px;
+}
+
+.tabs-content__item {
+	display: none;
+}
+
+.tabs-content__item.active {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	padding-top: 20px;
+}
+
+.home-gallery {
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+	margin-bottom: 100px;
+}
+
+.posts-list__description {
+	display: -webkit-box;
+	line-clamp: 3;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+
+.site .view-all-link {
+	align-self: center;
+	background: linear-gradient(to bottom, #FFA500, #FF8C00);
+	color: #fff;
+	font-size: 18px;
+	font-weight: bold;
+	padding: 16px 38px;
+	border: none;
+	border-radius: 12px;
+	box-shadow:
+		0 6px 0 #d97706,
+		0 10px 20px rgba(255, 140, 0, 0.4),
+		inset 0 4px 10px rgba(255, 255, 255, 0.3);
+	position: relative;
+	text-decoration: none;
+	transition: all 0.2s ease-in-out;
+}
+
+.site .view-all-link:hover {
+	transform: translateY(-3px);
+	box-shadow:
+		0 9px 0 #d97706,
+		0 14px 25px rgba(255, 140, 0, 0.6),
+		inset 0 4px 15px rgba(255, 255, 255, 0.4);
+}
+
+.site .view-all-link:active {
+	transform: translateY(3px);
+	box-shadow:
+		0 2px 0 #d97706,
+		0 4px 10px rgba(255, 140, 0, 0.4),
+		inset 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.page__entry-content {
+	margin: 0 auto 30px;
+	padding: 20px;
+	border-radius: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+	background: rgba(0, 0, 0, 0.5);
+	font-size: 18px;
+	text-align: center;
+	max-width: 60%;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.page__entry-content p {
+	margin: 0;
+	padding: 0;
+}
+
+.page-articles form {
+	margin: 0 auto;
+	width: 60%;
+}
+
+.page-articles input {
+	height: 50px;
+	border-radius: 10px;
+	outline: none;
+	width: 100%;
+}
+
+.page-articles textarea {
+	height: 250px;
+	border-radius: 10px;
+	outline: none;
+	width: 100%;
+	padding: 10px 16px;
+}
+
+.page-articles input[type="submit"] {
+	cursor: pointer;
+	background: linear-gradient(to bottom, #FFA500, #FF8C00);
+	color: #fff;
+	font-size: 18px;
+	font-weight: bold;
+	padding: 16px 38px;
+	border: none;
+	border-radius: 12px;
+	letter-spacing: .8px;
+	height: auto;
+	box-shadow:
+		0 6px 0 #d97706,
+		0 10px 20px rgba(255, 140, 0, 0.4),
+		inset 0 4px 10px rgba(255, 255, 255, 0.3);
+	position: relative;
+	text-decoration: none;
+	transition: all 0.2s ease-in-out;
+}
+
+.page-articles input[type="submit"]:hover {
+	transform: translateY(-3px);
+	box-shadow:
+		0 9px 0 #d97706,
+		0 14px 25px rgba(255, 140, 0, 0.6),
+		inset 0 4px 15px rgba(255, 255, 255, 0.4);
+}
+
+.page-articles input[type="submit"]:active {
+	transform: translateY(3px);
+	box-shadow:
+		0 2px 0 #d97706,
+		0 4px 10px rgba(255, 140, 0, 0.4),
+		inset 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.wpcf7-not-valid-tip {
+	padding: 2px 5px;
+	background: #fff;
+	border-radius: 3px;
+	display: inline-block;
+	margin-top: 2px;
+}
+
+form p {
+	margin: 0;
+}
+
+.form__field p {
+	margin-bottom: 20px;
+}
+
+.pagination {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 15px 20px;
+	align-items: center;
+	justify-content: center;
+	margin: 10px 0 30px;
+	font-size: 18px;
+}
+
+.site-footer__inner {
+	max-width: 1280px;
+	margin: 0 auto;
+	padding: 60px 30px;
+	border-radius: 20px 20px 0 0;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+	background: rgba(0, 0, 0, 0.5);
+	color: #fff;
+}
+
+.comment-form-comment textarea {
+	width: 100%;
+	height: 250px;
+	border-radius: 10px;
+	outline: none;
+	padding: 10px 16px;
+}
+
+.comment-respond input[type="submit"] {
+	cursor: pointer;
+	background: linear-gradient(to bottom, #FFA500, #FF8C00);
+	color: #fff;
+	font-size: 18px;
+	font-weight: bold;
+	padding: 16px 38px;
+	border: none;
+	border-radius: 12px;
+	letter-spacing: .8px;
+	height: auto;
+	box-shadow:
+		0 6px 0 #d97706,
+		0 10px 20px rgba(255, 140, 0, 0.4),
+		inset 0 4px 10px rgba(255, 255, 255, 0.3);
+	position: relative;
+	text-decoration: none;
+	transition: all 0.2s ease-in-out;
+	margin-top: 10px;
+}
+
+.comment-respond input[type="submit"]:hover {
+	transform: translateY(-3px);
+	box-shadow:
+		0 9px 0 #d97706,
+		0 14px 25px rgba(255, 140, 0, 0.6),
+		inset 0 4px 15px rgba(255, 255, 255, 0.4);
+}
+
+.comment-respond input[type="submit"]:active {
+	transform: translateY(3px);
+	box-shadow:
+		0 2px 0 #d97706,
+		0 4px 10px rgba(255, 140, 0, 0.4),
+		inset 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.comment-form-comment {
+	margin-top: 10px;
+}
+
+.entry-footer {
+	display: flex;
+	gap: 20px;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.no-results {
+	position: relative;
+	display: flex;
+}
+
+.no-results__image {
+	max-width: 500px;
+	height: auto;
+}
+
+.no-results__block {
+	flex: none;
+}
+
+.no-results__flex {
+	flex: 1;
+	position: relative;
+	justify-content: flex-end;
+	display: flex;
+}

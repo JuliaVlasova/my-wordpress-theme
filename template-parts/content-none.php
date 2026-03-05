@@ -11,7 +11,7 @@
 
 <section class="no-results not-found">
 	<header class="page-header">
-		<h1 class="page-title"><?php esc_html_e( 'Nothing Found', 'jvtravel' ); ?></h1>
+		<h1 class="page-title"><?php esc_html_e( 'Упс! Ничего не найдено.', 'jvtravel' ); ?></h1>
 	</header><!-- .page-header -->
 
 	<div class="page-content">
@@ -21,7 +21,7 @@
 			printf(
 				'<p>' . wp_kses(
 					/* translators: 1: link to WP admin new post page. */
-					__( 'Ready to publish your first post? <a href="%1$s">Get started here</a>.', 'jvtravel' ),
+					__( 'Готовы опубликовать первый пост? <a href="%1$s">Get started here</a>.', 'jvtravel' ),
 					array(
 						'a' => array(
 							'href' => array(),
@@ -34,14 +34,14 @@
 		elseif ( is_search() ) :
 			?>
 
-			<p><?php esc_html_e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'jvtravel' ); ?></p>
+			<p><?php esc_html_e( 'К сожалению, не нашлось совпадений по вашему запросу. Попробуйте снова с другими ключевыми словами.', 'jvtravel' ); ?></p>
 			<?php
 			get_search_form();
 
 		else :
 			?>
 
-			<p><?php esc_html_e( 'It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help.', 'jvtravel' ); ?></p>
+			<p><?php esc_html_e( 'Похоже, мы не можем найти того, что вы хотите.', 'jvtravel' ); ?></p>
 			<?php
 			get_search_form();
 

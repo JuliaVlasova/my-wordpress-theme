@@ -44,6 +44,9 @@
 				);
 				?>
 			</nav>
+			<div class="search-section">
+				<?php get_search_form(); ?>
+			</div>
 		</div>
 
 		<header id="masthead" class="site-header">

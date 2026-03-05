@@ -140,11 +140,271 @@ add_action('widgets_init', 'jvtravel_widgets_init');
 /**
  * Enqueue scripts and styles.
  */
+function add_critical_css()
+{
+	?>
+	<style>
+		html {
+			line-height: 1.15;
+			-webkit-text-size-adjust: 100%;
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 0;
+		}
+
+		main {
+			display: block;
+			padding-bottom: 40px;
+			margin-bottom: 30px;
+		}
+
+		b,
+		strong {
+			font-weight: bolder;
+		}
+
+		img {
+			border-style: none;
+		}
+
+		button,
+		[type="button"],
+		[type="reset"],
+		[type="submit"] {
+			-webkit-appearance: button;
+			appearance: button;
+		}
+
+		.hidden {
+			display: none;
+		}
+
+		*,
+		*::before,
+		*::after {
+			box-sizing: border-box;
+		}
+
+		body,
+		button,
+		input,
+		select,
+		textarea {
+			color: #404040;
+			font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+			font-size: 16px;
+			line-height: 1.5;
+		}
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			font-family: "Playpen Sans", cursive;
+		}
+
+		p {
+			margin-bottom: 30px;
+		}
+
+		body {
+			background: #fff;
+		}
+
+		ol {
+			list-style: decimal;
+		}
+
+		ul {
+			list-style: none;
+			display: flex;
+			gap: 30px;
+		}
+
+		img {
+			height: auto;
+			max-width: 100%;
+		}
+
+		figure {
+			margin: 1em 0;
+		}
+
+		table {
+			margin: 0 0 1.5em;
+			width: 100%;
+		}
+
+		a {
+			color: #fff;
+		}
+
+		a:visited {
+			color: #800080;
+		}
+
+		a:hover,
+		a:focus,
+		a:active {
+			color: #191970;
+		}
+
+		a:focus {
+			outline: thin dotted;
+		}
+
+		a:hover,
+		a:active {
+			outline: 0;
+		}
+
+		.site {
+			max-width: 1280px;
+			margin: 0 auto;
+			padding: 0 30px;
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+			background: rgba(0, 0, 0, 0.4);
+			backdrop-filter: blur(10px);
+			color: #fff;
+			border-radius: 0 0 20px 20px;
+		}
+
+		.site a {
+			color: #ffce0c;
+		}
+
+		.main-navigation .menu-toggle {
+			display: none;
+		}
+
+		.site-header {
+			display: flex;
+			gap: 30px;
+			align-items: center;
+			margin-bottom: 20px;
+		}
+
+		.site-branding {
+			flex: none;
+		}
+
+		.custom-logo {
+			width: 50px;
+			height: auto;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+			border-radius: 100%;
+			display: block;
+			border: 1px solid #fff;
+		}
+
+		.site-title a {
+			font-family: "Playpen Sans", cursive;
+			font-size: 50px;
+			line-height: 1.2;
+			color: #fff;
+			text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);
+			font-weight: 700;
+			text-decoration: none;
+		}
+
+		.site-row {
+			display: flex;
+			gap: 60px;
+			align-items: center;
+			padding-top: 40px;
+		}
+
+		.nav-menu {
+			display: flex;
+			gap: 30px;
+			align-items: center;
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		.nav-menu a {
+			font-size: 18px;
+			line-height: 1.2;
+			color: #fff;
+			text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+			font-weight: 700;
+			text-decoration: none;
+		}
+
+		.entry-header {
+			display: flex;
+			align-items: center;
+			gap: 20px;
+		}
+
+		.site-description {
+			font-size: 18px;
+			line-height: 1.2;
+		}
+
+		.search-section {
+			flex: 1;
+			justify-content: flex-end;
+			display: flex;
+		}
+
+		.search-field {
+			border-radius: 8px;
+			outline: none;
+			border: 1px solid #fff;
+			background: rgba(0, 0, 0, .7);
+			padding: 0 20px 0 10px;
+			color: #fff;
+			height: 40px;
+		}
+
+		.search-submit {
+			cursor: pointer;
+			background: linear-gradient(to bottom, #FFA500, #FF8C00);
+			color: #fff;
+			font-size: 16px;
+			margin-left: -14px;
+			font-weight: bold;
+			padding: 10px 38px;
+			border: none;
+			border-radius: 12px;
+			letter-spacing: .8px;
+			height: auto;
+			position: relative;
+			text-decoration: none;
+			transition: all 0.2s ease-in-out;
+		}
+	</style>
+	<?php
+}
+add_action('wp_head', 'add_critical_css', 1);
+
+
+function jvtravel_styles()
+{
+	wp_enqueue_style('theme-style', get_template_directory_uri() . '/css/style.css');
+}
+add_action('wp_enqueue_scripts', 'jvtravel_styles');
+
+function preload_first_screen_css()
+{
+	echo '<link rel="preload" href="' . get_template_directory_uri() . '/css/first-screen-css.css" as="style" onload="this.onload=null;this.rel=\'stylesheet\'">' . "\n";
+	// Резервный вариант для браузеров без JS
+	echo '<noscript><link rel="stylesheet" href="' . get_template_directory_uri() . '/css/first-screen-css.css"></noscript>' . "\n";
+}
+add_action('wp_head', 'preload_first_screen_css', 1);
+
+
 function jvtravel_scripts()
 {
 	wp_enqueue_style('jvtravel-style', get_stylesheet_uri(), array(), _S_VERSION);
 	wp_enqueue_script('jquery');
-	wp_enqueue_script('theme-custom-js', get_template_directory_uri() . '/script.js', ['jquery'], false, true);
+	wp_enqueue_script('theme-custom-js', get_template_directory_uri() . '/js/script.js', ['jquery'], false, true);
 	wp_style_add_data('jvtravel-style', 'rtl', 'replace');
 
 	wp_enqueue_script('jvtravel-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true);
@@ -183,98 +443,121 @@ if (defined('JETPACK__VERSION')) {
 }
 
 
-function jvtravel_customizer($wp_customize) {
-    // Добавляем секцию для настроек
-    $wp_customize->add_section('homepage_section', [
-        'title' => 'Настройки заголовков на главной',
-        'priority' => 30,
-    ]);
+function jvtravel_customizer($wp_customize)
+{
+	// Добавляем секцию для настроек
+	$wp_customize->add_section('homepage_section', [
+		'title' => 'Настройки заголовков на главной',
+		'priority' => 30,
+	]);
 
 
 
 	// Добавляем настройку для приветственного заголовка
-    $wp_customize->add_setting('hi_title', [
-        'default' => 'Привет!',
-        'sanitize_callback' => 'sanitize_text_field',
-    ]);
+	$wp_customize->add_setting('hi_title', [
+		'default' => 'Привет!',
+		'sanitize_callback' => 'sanitize_text_field',
+	]);
 
-    // Добавляем элемент управления для приветственного заголовка
-    $wp_customize->add_control('hi_title', [
-        'label' => 'Заголовок для приветственного заголовка на главной',
-        'section' => 'homepage_section',
-        'type' => 'text',
-    ]);
-
-
-
-    // Добавляем настройку для заголовка табов на главной
-    $wp_customize->add_setting('my_notes_title', [
-        'default' => 'Мои заметки',
-        'sanitize_callback' => 'sanitize_text_field',
-    ]);
-
-    // Добавляем элемент управления для заголовка табов на главной
-    $wp_customize->add_control('my_notes_title', [
-        'label' => 'Заголовок для заметок на главной',
-        'section' => 'homepage_section',
-        'type' => 'text',
-    ]);
+	// Добавляем элемент управления для приветственного заголовка
+	$wp_customize->add_control('hi_title', [
+		'label' => 'Заголовок для приветственного заголовка на главной',
+		'section' => 'homepage_section',
+		'type' => 'text',
+	]);
 
 
 
-	 // Добавляем настройку для кнопки табов на главной "Смотреть всё"
-    $wp_customize->add_setting('my_notes_view_all', [
-        'default' => 'Смотреть всё',
-        'sanitize_callback' => 'sanitize_text_field',
-    ]);
+	// Добавляем настройку для заголовка табов на главной
+	$wp_customize->add_setting('my_notes_title', [
+		'default' => 'Мои заметки',
+		'sanitize_callback' => 'sanitize_text_field',
+	]);
 
-    // Добавляем элемент управления для кнопки табов на главной "Смотреть всё"
-    $wp_customize->add_control('my_notes_view_all', [
-        'label' => 'Заголовок для кнопки табов на главной "Смотреть всё"',
-        'section' => 'homepage_section',
-        'type' => 'text',
-    ]);
-
-
-
-    // Добавляем настройку для заголовка галереи на главной
-    $wp_customize->add_setting('main_gallery_title', [
-        'default' => 'Мои замечательные фотографии',
-        'sanitize_callback' => 'sanitize_text_field',
-    ]);
-
-    // Добавляем элемент управления для заголовка галереи
-    $wp_customize->add_control('main_gallery_title', [
-        'label' => 'Заголовок для галереи на главной',
-        'section' => 'homepage_section',
-        'type' => 'text',
-    ]);
+	// Добавляем элемент управления для заголовка табов на главной
+	$wp_customize->add_control('my_notes_title', [
+		'label' => 'Заголовок для заметок на главной',
+		'section' => 'homepage_section',
+		'type' => 'text',
+	]);
 
 
 
-	 // Добавляем настройку для кнопки галереи на главной "Смотреть всё"
-    $wp_customize->add_setting('main_gallery_view_all', [
-        'default' => 'Смотреть все фотографии',
-        'sanitize_callback' => 'sanitize_text_field',
-    ]);
+	// Добавляем настройку для кнопки табов на главной "Смотреть всё"
+	$wp_customize->add_setting('my_notes_view_all', [
+		'default' => 'Смотреть всё',
+		'sanitize_callback' => 'sanitize_text_field',
+	]);
 
-    // Добавляем элемент управления для кнопки галереи на главной "Смотреть всё"
-    $wp_customize->add_control('main_gallery_view_all', [
-        'label' => 'Заголовок для кнопки галереи на главной "Смотреть всё"',
-        'section' => 'homepage_section',
-        'type' => 'text',
-    ]);
+	// Добавляем элемент управления для кнопки табов на главной "Смотреть всё"
+	$wp_customize->add_control('my_notes_view_all', [
+		'label' => 'Заголовок для кнопки табов на главной "Смотреть всё"',
+		'section' => 'homepage_section',
+		'type' => 'text',
+	]);
+
+
+
+	// Добавляем настройку для заголовка галереи на главной
+	$wp_customize->add_setting('main_gallery_title', [
+		'default' => 'Мои замечательные фотографии',
+		'sanitize_callback' => 'sanitize_text_field',
+	]);
+
+	// Добавляем элемент управления для заголовка галереи
+	$wp_customize->add_control('main_gallery_title', [
+		'label' => 'Заголовок для галереи на главной',
+		'section' => 'homepage_section',
+		'type' => 'text',
+	]);
+
+
+
+	// Добавляем настройку для кнопки галереи на главной "Смотреть всё"
+	$wp_customize->add_setting('main_gallery_view_all', [
+		'default' => 'Смотреть все фотографии',
+		'sanitize_callback' => 'sanitize_text_field',
+	]);
+
+	// Добавляем элемент управления для кнопки галереи на главной "Смотреть всё"
+	$wp_customize->add_control('main_gallery_view_all', [
+		'label' => 'Заголовок для кнопки галереи на главной "Смотреть всё"',
+		'section' => 'homepage_section',
+		'type' => 'text',
+	]);
 }
 
 add_action('customize_register', 'jvtravel_customizer');
 
-function jvtravel_fonts() {
-    // Подключаем шрифты Google Fonts с поддержкой кириллицы
-    wp_enqueue_style(
-        'google-fonts',
-        'https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@100..800&family=Roboto:wght@400;500&display=swap&subset=cyrillic',
-        [],
-        null
-    );
+function jvtravel_fonts()
+{
+	wp_enqueue_style(
+		'google-fonts',
+		'https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@100..800&family=Roboto:wght@400;500&display=swap&subset=cyrillic',
+		[],
+		null
+	);
 }
 add_action('wp_enqueue_scripts', 'jvtravel_fonts');
+
+function jvtravel_search_customizer($wp_customize) {
+    $wp_customize->add_section('search_options', [
+        'title' => 'Оформление результатов поиска',
+        'priority' => 30,
+    ]);
+
+    $wp_customize->add_setting('no_results_image', [
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ]);
+
+    $wp_customize->add_control(new WP_Customize_Image_Control(
+        $wp_customize,
+        'no_results_image',
+        [
+            'label' => 'Картинка при отсутствии результатов поиска',
+            'section' => 'search_options',
+        ]
+    ));
+}
+add_action('customize_register', 'jvtravel_search_customizer');

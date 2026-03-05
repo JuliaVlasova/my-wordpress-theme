@@ -1,0 +1,58 @@
+/*
+Theme Name: JVTravel
+Theme URI: http://example.com/jvtravel/
+Author: Your Name
+Author URI: http://example.com/
+Description: Тема для путешествий.
+Version: 1.0
+Requires at least: 5.0
+Tested up to: 6.0
+Requires PHP: 7.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: jvtravel
+Tags: blog, two-columns, custom-background, custom-logo
+*/
+.current_page_item a {
+	text-decoration: underline;
+}
+
+.header__animated-block {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background: radial-gradient(circle at 30% 30%, #079788, #4dcfea, #a8ddeb);
+
+	box-shadow:
+		inset 10px 10px 20px rgba(0, 0, 0, 0.2),
+		10px 10px 20px rgba(72, 61, 139, 0.3),
+		0 0 30px rgba(123, 31, 162, 0.4);
+	animation: floatHorizontal 8s ease-in-out infinite;
+	margin: 0 20px;
+}
+
+@keyframes floatHorizontal {
+	0% {
+		transform: translateX(-30px);
+	}
+
+	50% {
+		transform: translateX(30px) translateY(-15px) rotate(10deg);
+	}
+
+	100% {
+		transform: translateX(-30px) translateY(0) rotate(0deg);
+	}
+}
+
+.nav-menu a:hover {
+	text-decoration: underline;
+}
+
+.search-submit:hover {
+	transform: translateY(-3px);
+}
+
+.search-submit:active {
+	transform: translateY(3px);
+}
