@@ -561,3 +561,35 @@ function jvtravel_search_customizer($wp_customize) {
     ));
 }
 add_action('customize_register', 'jvtravel_search_customizer');
+
+
+function register_book_post_type() {
+    register_post_type('book', [
+        'labels' => [
+            'name'          => 'Книги',
+            'singular_name' => 'Книга',
+        ],
+        'public'          => true,
+        'has_archive'     => true,
+        'show_in_rest'    => true,
+        'supports'        => ['title', 'editor', 'thumbnail'],
+        'menu_icon'       => 'dashicons-book-alt',
+    ]);
+}
+add_action('init', 'register_book_post_type');
+
+
+function register_chapter_post_type() {
+    register_post_type('chapter', [
+        'labels' => [
+            'name'          => 'Главы',
+            'singular_name' => 'Глава',
+        ],
+        'public'          => true,
+        'has_archive'     => false,
+        'show_in_rest'    => true,
+        'supports'        => ['title', 'editor', 'author'],
+        'menu_icon'       => 'dashicons-media-document',
+    ]);
+}
+add_action('init', 'register_chapter_post_type');
