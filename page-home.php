@@ -29,13 +29,44 @@ get_header();
 		</div>
 	</div>
 
+	<?php
+	$weather_type = get_cat_weather(true); // Получаем тип погоды: 'clear', 'rain' и т.д.
+	$additional_class = '';
+
+	switch ($weather_type) {
+		case 'clear':
+			$additional_class = 'weather-clear';
+			break;
+		case 'clouds':
+			$additional_class = 'weather-clouds';
+			break;
+		case 'rain':
+			$additional_class = 'weather-rain';
+			break;
+		case 'snow':
+			$additional_class = 'weather-snow';
+			break;
+		case 'thunderstorm':
+			$additional_class = 'weather-storm';
+			break;
+		default:
+			$additional_class = 'weather-default';
+	}
+
+	$weather_class = $additional_class;
+	?>
+	<div class="cat-weather-wrapper <?php echo esc_attr($weather_class); ?>">
+		<div class="cat-weather__bg"></div>
+		<div class="cat-weather__info"><?php echo do_shortcode('[cat_weather]'); ?></div>
+	</div>
 	<section class="home-gallery">
 		<h2 class="main-h2">
 			<?php echo get_theme_mod('main_gallery_title', 'Мои замечательные фотографии'); ?>
 		</h2>
 
 		<?php echo do_shortcode('[my_gallery id="57" limit="6"]'); ?>
-		<a href="/wordpress/?page_id=37" class="view-all-link"><?php echo get_theme_mod('main_gallery_view_all', 'Смотреть все фотографии'); ?></a>
+		<a href="/wordpress/?page_id=37"
+			class="view-all-link"><?php echo get_theme_mod('main_gallery_view_all', 'Смотреть все фотографии'); ?></a>
 	</section>
 
 	<?php
@@ -100,7 +131,8 @@ get_header();
 							</article>
 						<?php endforeach; ?>
 					</div>
-					<a href="<?php echo get_category_link($tab['id']); ?>" class="view-all-link"><?php echo get_theme_mod('my_notes_view_all', 'Смотреть всё'); ?></a>
+					<a href="<?php echo get_category_link($tab['id']); ?>"
+						class="view-all-link"><?php echo get_theme_mod('my_notes_view_all', 'Смотреть всё'); ?></a>
 				</div>
 			<?php endforeach; ?>
 			<?php wp_reset_postdata(); ?>

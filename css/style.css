@@ -15,6 +15,68 @@ Tags: blog, two-columns, custom-background, custom-logo
 */
 
 
+.cat-weather-wrapper {
+	position: relative;
+	padding: 40px;
+	margin-top: -50px;
+	width: 400px;
+	z-index: 4;
+	margin-bottom: -50px;
+}
+
+.cat-weather__bg {
+	position: absolute;
+	width: 110%;
+	height: 110%;
+	z-index: 1;
+	left: -7%;
+    bottom: 3%;
+    transform: rotate(-23deg);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+.weather-default .cat-weather__bg {
+	background: #a3e5e9;
+	border: 14px solid #036475;
+}
+
+.weather-clear .cat-weather__bg {
+	background: #fffc2f;
+	border: 14px solid #ffa500;
+}
+
+.weather-clouds .cat-weather__bg {
+	background: #a3a280;
+	border: 14px solid #1561ad;
+}
+
+.weather-rain .cat-weather__bg {
+	background: #7842d7;
+	border: 14px solid #41003c;
+}
+
+.weather-snow .cat-weather__bg {
+	background: #ffffff;
+	border: 14px solid #eda4a4;
+}
+
+.weather-storm .cat-weather__bg {
+	background: #0e0648;
+	border: 14px solid #297bab;
+}
+
+.cat-weather__info {
+	position: relative;
+	z-index: 2;
+	color: #00125d;
+	font-size: 20px;
+}
+
+.weather-storm .cat-weather__info,
+.weather-rain .cat-weather__info {
+	color: #fff;
+}
+
 .site-main .wp-block-image img {
 	object-fit: cover;
 	object-position: 0 -200px;
@@ -202,6 +264,8 @@ Tags: blog, two-columns, custom-background, custom-logo
 	flex-direction: column;
 	gap: 0;
 	margin-bottom: 100px;
+	position: relative;
+	z-index: 5;
 }
 
 .posts-list__description {

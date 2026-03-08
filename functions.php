@@ -540,56 +540,130 @@ function jvtravel_fonts()
 }
 add_action('wp_enqueue_scripts', 'jvtravel_fonts');
 
-function jvtravel_search_customizer($wp_customize) {
-    $wp_customize->add_section('search_options', [
-        'title' => 'Оформление результатов поиска',
-        'priority' => 30,
-    ]);
+function jvtravel_search_customizer($wp_customize)
+{
+	$wp_customize->add_section('search_options', [
+		'title' => 'Оформление результатов поиска',
+		'priority' => 30,
+	]);
 
-    $wp_customize->add_setting('no_results_image', [
-        'default' => '',
-        'sanitize_callback' => 'esc_url_raw',
-    ]);
+	$wp_customize->add_setting('no_results_image', [
+		'default' => '',
+		'sanitize_callback' => 'esc_url_raw',
+	]);
 
-    $wp_customize->add_control(new WP_Customize_Image_Control(
-        $wp_customize,
-        'no_results_image',
-        [
-            'label' => 'Картинка при отсутствии результатов поиска',
-            'section' => 'search_options',
-        ]
-    ));
+	$wp_customize->add_control(new WP_Customize_Image_Control(
+		$wp_customize,
+		'no_results_image',
+		[
+			'label' => 'Картинка при отсутствии результатов поиска',
+			'section' => 'search_options',
+		]
+	));
 }
 add_action('customize_register', 'jvtravel_search_customizer');
 
 
-function register_book_post_type() {
-    register_post_type('book', [
-        'labels' => [
-            'name'          => 'Книги',
-            'singular_name' => 'Книга',
-        ],
-        'public'          => true,
-        'has_archive'     => true,
-        'show_in_rest'    => true,
-        'supports'        => ['title', 'editor', 'thumbnail'],
-        'menu_icon'       => 'dashicons-book-alt',
-    ]);
+function register_book_post_type()
+{
+	register_post_type('book', [
+		'labels' => [
+			'name' => 'Книги',
+			'singular_name' => 'Книга',
+		],
+		'public' => true,
+		'has_archive' => true,
+		'show_in_rest' => true,
+		'supports' => ['title', 'editor', 'thumbnail'],
+		'menu_icon' => 'dashicons-book-alt',
+	]);
 }
 add_action('init', 'register_book_post_type');
 
 
-function register_chapter_post_type() {
-    register_post_type('chapter', [
-        'labels' => [
-            'name'          => 'Главы',
-            'singular_name' => 'Глава',
-        ],
-        'public'          => true,
-        'has_archive'     => false,
-        'show_in_rest'    => true,
-        'supports'        => ['title', 'editor', 'author'],
-        'menu_icon'       => 'dashicons-media-document',
-    ]);
+function register_chapter_post_type()
+{
+	register_post_type('chapter', [
+		'labels' => [
+			'name' => 'Главы',
+			'singular_name' => 'Глава',
+		],
+		'public' => true,
+		'has_archive' => false,
+		'show_in_rest' => true,
+		'supports' => ['title', 'editor', 'author'],
+		'menu_icon' => 'dashicons-media-document',
+	]);
 }
 add_action('init', 'register_chapter_post_type');
+
+
+function get_cat_weather($return_type = false)
+{
+	$api_key = 'c329cf1c8e6eede438002380d341089c';
+	$city = 'Moscow';
+
+	$url = "https://api.openweathermap.org/data/2.5/weather?q={$city}&appid={$api_key}&units=metric&lang=ru";
+
+	$response = wp_remote_get($url);
+
+	if (is_wp_error($response)) {
+		if ($return_type)
+			return '';
+		return 'Ошибка получения погоды.';
+	}
+
+	$body = wp_remote_retrieve_body($response);
+	$data = json_decode($body, true);
+
+
+	if (!empty($data['weather'][0]['description']) && !empty($data['main']['temp'])) {
+		$description = $data['weather'][0]['description'];
+		$temp = round($data['main']['temp']);
+		$weather_main = $data['weather'][0]['main'];
+
+		if ($return_type) {
+			return strtolower($weather_main);
+		}
+
+		// Реакция кота на погоду
+		$cat_reaction = get_cat_reaction($data['weather'][0]['main']);
+
+		return "
+        <div class='cat-weather'>
+            <h3>Погода у кота</h3>
+            <p>Сейчас в {$city}: {$temp}°C, {$description}</p>
+            <p class='cat-mood'>{$cat_reaction}</p>
+        </div>
+        ";
+	}
+
+	if ($return_type) return '';
+	return 'Не удалось получить погоду.';
+}
+
+// Функция, которая возвращает реакцию кота
+function get_cat_reaction($weather_main)
+{
+	switch ($weather_main) {
+		case 'Clear':
+			return '☀️ Кот греется на солнышке.';
+		case 'Clouds':
+			return '☁️ Кот лениво наблюдает за облаками.';
+		case 'Rain':
+			return '🌧 Кот спит в тёплом месте.';
+		case 'Snow':
+			return '❄️ Кот смотрит в окно и мурлычет.';
+		case 'Thunderstorm':
+			return '⛈ Кот прячется под одеялом.';
+		default:
+			return '🤔 Кот думает, что делать.';
+	}
+}
+
+// Регистрируем шорткод
+function cat_weather_shortcode()
+{
+	return get_cat_weather();
+}
+add_shortcode('cat_weather', 'cat_weather_shortcode');
