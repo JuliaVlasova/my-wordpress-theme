@@ -597,7 +597,7 @@ function register_chapter_post_type()
 }
 add_action('init', 'register_chapter_post_type');
 
-
+/* API WEATHER */
 function get_cat_weather($return_type = false)
 {
 	$api_key = 'c329cf1c8e6eede438002380d341089c';
@@ -638,11 +638,11 @@ function get_cat_weather($return_type = false)
         ";
 	}
 
-	if ($return_type) return '';
+	if ($return_type)
+		return '';
 	return 'Не удалось получить погоду.';
 }
 
-// Функция, которая возвращает реакцию кота
 function get_cat_reaction($weather_main)
 {
 	switch ($weather_main) {
@@ -661,9 +661,82 @@ function get_cat_reaction($weather_main)
 	}
 }
 
-// Регистрируем шорткод
 function cat_weather_shortcode()
 {
 	return get_cat_weather();
 }
 add_shortcode('cat_weather', 'cat_weather_shortcode');
+/* API WEATHER END */
+
+/* Load More Gallery */
+function load_more_gallery_items()
+{
+	$post_id = intval($_POST['post_id']);
+	$offset = intval($_POST['offset']);
+	$limit = intval($_POST['limit']);
+
+	$images = get_post_meta($post_id, '_gallery_images', true);
+	$descriptions = get_post_meta($post_id, '_gallery_descriptions', true);
+
+    if (is_string($images)) {
+        $decoded_images = maybe_unserialize($images);
+        if ($decoded_images !== false && is_array($decoded_images)) {
+            $images = $decoded_images;
+        } else {
+            $decoded_images = json_decode($images, true);
+            if ($decoded_images !== null && is_array($decoded_images)) {
+                $images = $decoded_images;
+            } else {
+                $images = [];
+            }
+        }
+    } elseif (!is_array($images)) {
+        $images = [];
+    }
+
+	if (!is_array($images)) {
+		wp_send_json_success(['html' => '', 'has_more' => false]);
+	}
+
+	$html = '';
+	$count = 0;
+	$total = count($images);
+
+	foreach ($images as $index => $img_id) {
+		if ($index < $offset) {
+			continue;
+		}
+		if ($count >= $limit) {
+			break;
+		}
+
+
+		$img_url = wp_get_attachment_image_src($img_id, 'full')[0];
+		$desc = isset($descriptions[$index]) ? $descriptions[$index] : '';
+
+		$html .= '
+        <div class="gallery-item-wrap">
+            <a href="' . esc_url($img_url) . '" class="gallery-item" data-description="' . esc_attr($desc) . '">' .
+			wp_get_attachment_image($img_id, 'medium') . '
+            </a>
+        </div>';
+
+		$count++;
+	}
+	$has_more = ($offset + $limit) < $total;
+
+	wp_send_json_success(['html' => $html, 'has_more' => $has_more]);
+}
+add_action('wp_ajax_load_more_gallery_items', 'load_more_gallery_items');
+add_action('wp_ajax_nopriv_load_more_gallery_items', 'load_more_gallery_items');
+
+function my_enqueue_gallery_scripts()
+{
+	wp_enqueue_script('jquery');
+	wp_enqueue_script('my-gallery-ajax', get_template_directory_uri() . '/script.js', ['jquery'], false, true);
+	wp_localize_script('my-gallery-ajax', 'ajax_object', [
+		'ajax_url' => admin_url('admin-ajax.php')
+	]);
+}
+add_action('wp_enqueue_scripts', 'my_enqueue_gallery_scripts');
+/* Load More Gallery END */

@@ -30,7 +30,7 @@ get_header();
 	</div>
 
 	<?php
-	$weather_type = get_cat_weather(true); // Получаем тип погоды: 'clear', 'rain' и т.д.
+	$weather_type = get_cat_weather(true);
 	$additional_class = '';
 
 	switch ($weather_type) {
@@ -55,9 +55,19 @@ get_header();
 
 	$weather_class = $additional_class;
 	?>
-	<div class="cat-weather-wrapper <?php echo esc_attr($weather_class); ?>">
-		<div class="cat-weather__bg"></div>
-		<div class="cat-weather__info"><?php echo do_shortcode('[cat_weather]'); ?></div>
+	<div class="interactive-block">
+		<div class="cat-weather-wrapper <?php echo esc_attr($weather_class); ?>">
+			<div class="cat-weather__bg"></div>
+			<div class="cat-weather__info">
+				<?php echo do_shortcode('[cat_weather]'); ?>
+			</div>
+		</div>
+		<div class="cat-map">
+			<h2 class="cat-map__header">Здесь я был!</h2>
+			<iframe
+				src="https://yandex.ru/map-widget/v1/?um=constructor%3A503aa718d92625a60ff520cba16cacd71ba007a4e103c3f97135b134aba58d6f&amp;source=constructor"
+				width="500" height="300" frameborder="0"></iframe>
+		</div>
 	</div>
 	<section class="home-gallery">
 		<h2 class="main-h2">
@@ -70,7 +80,6 @@ get_header();
 	</section>
 
 	<?php
-	// Получаем все категории
 	$categories = get_categories([
 		'hide_empty' => true,
 	]);

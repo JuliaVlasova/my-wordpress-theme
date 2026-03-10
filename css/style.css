@@ -14,14 +14,27 @@ Text Domain: jvtravel
 Tags: blog, two-columns, custom-background, custom-logo
 */
 
+.interactive-block {
+	display: flex;
+	gap: 30px;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 80px;
+}
+
+.cat-map__header {
+	margin-top: 0;
+}
+
+.cat-map iframe {
+	border: 5px solid red;
+}
 
 .cat-weather-wrapper {
 	position: relative;
 	padding: 40px;
-	margin-top: -50px;
 	width: 400px;
 	z-index: 4;
-	margin-bottom: -50px;
 }
 
 .cat-weather__bg {
@@ -431,7 +444,7 @@ form p {
 	padding: 10px 16px;
 }
 
-.comment-respond input[type="submit"] {
+.comment-respond input[type="submit"], .super-orange-button {
 	cursor: pointer;
 	background: linear-gradient(to bottom, #FFA500, #FF8C00);
 	color: #fff;
@@ -452,7 +465,7 @@ form p {
 	margin-top: 10px;
 }
 
-.comment-respond input[type="submit"]:hover {
+.comment-respond input[type="submit"]:hover, .super-orange-button:hover {
 	transform: translateY(-3px);
 	box-shadow:
 		0 9px 0 #d97706,
@@ -460,7 +473,7 @@ form p {
 		inset 0 4px 15px rgba(255, 255, 255, 0.4);
 }
 
-.comment-respond input[type="submit"]:active {
+.comment-respond input[type="submit"]:active, .super-orange-button:active {
 	transform: translateY(3px);
 	box-shadow:
 		0 2px 0 #d97706,
@@ -498,4 +511,9 @@ form p {
 	position: relative;
 	justify-content: flex-end;
 	display: flex;
+}
+
+.load-more-container {
+    text-align: center;
+    margin-bottom: 20px;
 }

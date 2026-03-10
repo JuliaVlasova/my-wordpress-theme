@@ -10,17 +10,15 @@ if (have_posts()):
             <h1><?php the_title(); ?></h1>
             <?php the_content(); ?>
 
-            <!-- Вывод глав, связанных с этой книгой -->
             <div class="chapters-list">
                 <h2>Главы</h2>
                 <?php
 
-                // Получаем все главы, у которых поле related_book == ID этой книги
                 $chapters = get_posts([
                     'post_type' => 'chapter',
                     'meta_query' => [
                         [
-                            'key' => 'related_book', // <-- Убедитесь, что имя совпадает!
+                            'key' => 'related_book', 
                             'value' => get_the_ID(),
                             'compare' => '='
                         ]
