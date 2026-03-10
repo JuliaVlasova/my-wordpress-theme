@@ -100,6 +100,8 @@ function jvtravel_setup()
 			'flex-height' => true,
 		)
 	);
+
+	load_theme_textdomain('jvtravel', get_template_directory() . '/languages');
 }
 add_action('after_setup_theme', 'jvtravel_setup');
 
@@ -678,21 +680,21 @@ function load_more_gallery_items()
 	$images = get_post_meta($post_id, '_gallery_images', true);
 	$descriptions = get_post_meta($post_id, '_gallery_descriptions', true);
 
-    if (is_string($images)) {
-        $decoded_images = maybe_unserialize($images);
-        if ($decoded_images !== false && is_array($decoded_images)) {
-            $images = $decoded_images;
-        } else {
-            $decoded_images = json_decode($images, true);
-            if ($decoded_images !== null && is_array($decoded_images)) {
-                $images = $decoded_images;
-            } else {
-                $images = [];
-            }
-        }
-    } elseif (!is_array($images)) {
-        $images = [];
-    }
+	if (is_string($images)) {
+		$decoded_images = maybe_unserialize($images);
+		if ($decoded_images !== false && is_array($decoded_images)) {
+			$images = $decoded_images;
+		} else {
+			$decoded_images = json_decode($images, true);
+			if ($decoded_images !== null && is_array($decoded_images)) {
+				$images = $decoded_images;
+			} else {
+				$images = [];
+			}
+		}
+	} elseif (!is_array($images)) {
+		$images = [];
+	}
 
 	if (!is_array($images)) {
 		wp_send_json_success(['html' => '', 'has_more' => false]);
@@ -740,3 +742,62 @@ function my_enqueue_gallery_scripts()
 }
 add_action('wp_enqueue_scripts', 'my_enqueue_gallery_scripts');
 /* Load More Gallery END */
+
+/* Dynamic meta-tags */
+function add_dynamic_seo_meta_tags()
+{
+	global $post;
+
+	$title = get_bloginfo('name');
+	$description = get_bloginfo('description');
+	$url = home_url();
+	$image = get_template_directory_uri() . '/assets/images/favicon.jpg';
+	$type = 'website';
+	$excerpt = get_the_excerpt();
+	$content = strip_tags(get_the_content());
+
+	if (is_page()) {
+		$title = get_the_title();
+		$description = $excerpt ?: wp_trim_words($content, 30, '...');
+		$url = get_permalink();
+
+		if (has_post_thumbnail()) {
+			$image = get_the_post_thumbnail_url($post->ID, 'large');
+		}
+
+		$type = 'article';
+	}
+
+	if (is_home() || is_front_page()) {
+		$title = get_bloginfo('name');
+		$description = get_bloginfo('description');
+		$url = home_url();
+	}
+
+	if (is_category() || is_tag()) {
+		$title = single_term_title('', false) . ' - ' . get_bloginfo('name');
+		$description = category_description();
+		$url = get_term_link(get_queried_object());
+	}
+
+	$title = esc_attr($title);
+	$description = esc_attr(strip_tags($description));
+	$url = esc_url($url);
+	$image = esc_url($image);
+	?>
+	<!-- SEO Meta Tags -->
+	<title><?php echo $title; ?></title>
+	<meta name="description" content="<?php echo $description; ?>">
+	<meta property="og:title" content="<?php echo $title; ?>">
+	<meta property="og:description" content="<?php echo $description; ?>">
+	<meta property="og:url" content="<?php echo $url; ?>">
+	<meta property="og:type" content="<?php echo $type; ?>">
+	<meta property="og:image" content="<?php echo $image; ?>">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="<?php echo $title; ?>">
+	<meta name="twitter:description" content="<?php echo $description; ?>">
+	<meta name="twitter:image" content="<?php echo $image; ?>">
+	<?php
+}
+add_action('wp_head', 'add_dynamic_seo_meta_tags');
+/* Dynamic meta-tags END */
